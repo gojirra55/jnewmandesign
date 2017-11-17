@@ -27,6 +27,16 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/login', login);
 
+// Global variables
+app.locals = {
+	site: {
+		top_nav_links: [
+			{href:'', label: 'Home'},
+ 			{href:'login', label: 'Login'}
+		]
+	}
+};
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
