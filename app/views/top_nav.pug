@@ -1,8 +1,6 @@
 p Navigation
 div
 	ul
-		li
-			a(href= 'google.com') test
 		each link in site.top_nav_links
-			li 
+			li
 				a(href= '/' + link.href) #{link.label}
