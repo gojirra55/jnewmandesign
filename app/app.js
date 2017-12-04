@@ -7,6 +7,12 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+// var design = require('./routes/design');
+// var coding = require('./routes/coding');
+// var games = require('./routes/games');
+// var resume = require('./routes/resume');
+// var contact = require('./routes/contact');
+var admin = require('./routes/admin');
 var login = require('./routes/login');
 
 var app = express();
@@ -25,7 +31,27 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+// app.use('/design', design);
+// app.use('/coding', coding);
+// app.use('/games', games);
+// app.use('/resume', resume);
+// app.use('/contact', contact);
+app.use('/admin', admin);
 app.use('/login', login);
+
+// Global variables
+app.locals = {
+	site: {
+		top_nav_links: [
+			{label: 'Home', href: ''},
+ 			{label: 'Graphic Design', href: 'design'},
+ 			{label: 'Coding', href: 'coding'},
+ 			{label: 'Game Design', href: 'games'},
+ 			{label: 'Resume', href: 'resume'},
+ 			{label: 'Contact', href: 'contact'}
+		]
+	}
+};
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

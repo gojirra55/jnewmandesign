@@ -1,0 +1,6 @@
+p Navigation
+div
+	ul
+		each link in site.top_nav_links
+			li
+				a(href= '/' + link.href) #{link.label}
