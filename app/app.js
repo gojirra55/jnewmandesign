@@ -39,6 +39,11 @@ app.use('/users', users);
 app.use('/admin', admin);
 app.use('/login', login);
 
+// App functions
+app.post('/publish', function(req, res) {
+	console.log('Worked:', req.body);
+})
+
 // Global variables
 app.locals = {
 	site: {
