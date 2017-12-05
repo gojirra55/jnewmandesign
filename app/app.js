@@ -41,7 +41,12 @@ app.use('/login', login);
 
 // App functions
 app.post('/publish', function(req, res) {
-	console.log('Worked:', req.body);
+	// var title = req.body.title;
+	// var category = req.body.category;
+	// var description = req.body.description;
+
+	res.render('publish_success', req.body);
+
 })
 
 // Global variables
