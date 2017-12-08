@@ -12,6 +12,7 @@ var users = require('./routes/users');
 // var games = require('./routes/games');
 // var resume = require('./routes/resume');
 // var contact = require('./routes/contact');
+//var admin = require('./routes/about');
 var admin = require('./routes/admin');
 var login = require('./routes/login');
 
