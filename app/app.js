@@ -4,6 +4,24 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var AWS = require('aws-sdk');
+AWS.config.update({
+  region: "us-west-2",
+  endpoint: "http://localhost:8000"
+});
+
+// Database
+var docClient = new AWS.DynamoDB.DocumentClient();
+console.log('Attempting to connect to DB');
+var params = {
+	TableName: 'jnewmandesign_content'
+};
+
+docClient.query(params, function(err, data) {
+	if (err) console.error('Unable to query DB.', JSON.stringify(err, null, 2));
+
+	console.log("We did it:", data);
+});
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -39,6 +57,16 @@ app.use('/users', users);
 // app.use('/contact', contact);
 app.use('/admin', admin);
 app.use('/login', login);
+
+// App functions
+app.post('/publish', function(req, res) {
+	// var title = req.body.title;
+	// var category = req.body.category;
+	// var description = req.body.description;
+
+	res.render('publish_success', req.body);
+
+})
 
 // Global variables
 app.locals = {

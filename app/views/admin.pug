@@ -2,5 +2,19 @@ extends layout
 
 block content
 	h1= title
-	p #{title}
 	p Post Content Here
+
+	form(name='publish_form' method='POST' action='/publish')
+		h3 Title
+		input#title(type='text', placeholder='Title' name='title')
+
+		h3 Category
+		select(name='category')
+			option(value='design') Design
+			option(value='coding') Coding
+			option(value='games') Games
+
+		h3 Description
+		textarea(name='description' placeholder='Type description here.')
+
+		button(type='submit') Publish
