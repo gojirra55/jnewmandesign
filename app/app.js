@@ -4,25 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var AWS = require('aws-sdk');
-AWS.config.update({
-  region: "us-west-2",
-  endpoint: "http://localhost:8000"
-});
-
-// Database
-var docClient = new AWS.DynamoDB.DocumentClient();
-console.log('Attempting to connect to DB');
-var params = {
-	TableName: 'jnewmandesign_content'
-};
-
-docClient.query(params, function(err, data) {
-	if (err) console.error('Unable to query DB.', JSON.stringify(err, null, 2));
-
-	console.log("We did it:", data);
-});
-
 var index = require('./routes/index');
 var users = require('./routes/users');
 // var design = require('./routes/design');
@@ -33,6 +14,7 @@ var users = require('./routes/users');
 //var admin = require('./routes/about');
 var admin = require('./routes/admin');
 var login = require('./routes/login');
+var aws_router = require('./routes/aws');
 
 var app = express();
 
@@ -47,7 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use('/aws', aws_router);
 app.use('/', index);
 app.use('/users', users);
 // app.use('/design', design);
@@ -99,6 +81,10 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+app.listen(3000, function () {
+  console.log('App listening on port 3000.');
 });
 
 module.exports = app;
