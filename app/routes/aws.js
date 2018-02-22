@@ -9,17 +9,28 @@ AWS.config.apiVersions = {
 
 var db = new AWS.DynamoDB();
 
+var params = {
+	"TableName": "jnewmandesign_portfolio"
+}
+
 
 router.get('/table-list', function(req, res, next) {
 	console.log('Attempting AWS connection.');
 
 	db.listTables(function(err, data) {
 		if (err) {
-			console.log('ERROR!');
 			throw (err);
 		}
 
 		console.log(data.TableNames);
+	});
+
+	db.scan(params, function(err, data) {
+		if (err) {
+			throw (err);
+		}
+
+		console.log(data);
 	});
 
 	res.send('AWS Success, see console.');
